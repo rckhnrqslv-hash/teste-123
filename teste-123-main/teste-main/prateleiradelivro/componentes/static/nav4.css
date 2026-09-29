@@ -1,0 +1,951 @@
+/* ==========================================================================
+   CSS GLOBAL - BOOKSHELF DESIGN SYSTEM
+   ========================================================================== */
+
+/* Definição de variáveis no escopo raiz (:root) para reutilização de cores e tokens em todo o projeto */
+:root {
+  --bg-main: #D9CAB3;             /* Cor de fundo principal da aplicação (tom pastel/terroso) */
+  --bg-nav: #5E0B15;              /* Cor de fundo da barra de navegação (vinho escuro) */
+  --bg-board: #ffffff;            /* Cor de fundo dos painéis e contêineres brancos */
+  --card-bg: #90323D;             /* Cor de fundo externa dos cards de livros (vinho intermediário) */
+  --card-inner-bg: #5E0B15;       /* Cor interna de fundo do container da capa do livro */
+  --card-info-bg: #90323D;        /* Cor de fundo para a área de informações do card */
+  --card-action-bg: #5E0B15;      /* Cor de fundo para a barra de ações inferiores do card */
+  --accent-blue: #BC8034;         /* Cor de destaque dourada/amarelada para elementos de atenção */
+  --accent-magenta: #90323D;      /* Cor magenta escura usada para bordas e detalhes das capas */
+  --text-dark: #252b42;           /* Cor escura padrão para textos em fundos claros */
+  --text-light: #ffffff;          /* Cor clara padrão para textos em fundos escuros */
+  --border-color: #e5e7eb;        /* Cor cinza clara para bordas divisórias gerais */
+  
+  /* Variáveis adicionais mapeadas para o ecossistema de autenticação e detalhes */
+  --cor-verde-marca: #5E0B15;     /* Alias para a cor vinho identitária da marca */
+  --cor-fundo: #D9CAB3;           /* Alias para o fundo geral terroso da aplicação */
+  --cor-superficie: #ffffff;      /* Alias para superfícies brancas como cartões e inputs */
+  --cor-texto-principal: #1f2937; /* Cor cinza escuro para legibilidade aprimorada de textos longos */
+  --cor-texto-secundario: #4b5563;/* Cor cinza média para subtítulos e rótulos secundários */
+  --cor-borda: #d1d5db;           /* Cor cinza intermediária para bordas de campos de formulário */
+  --cor-primaria: #90323D;        /* Tom primário para botões e realces de formulários */
+  --cor-primaria-hover: #5E0B15;  /* Tom escuro aplicado no estado hover dos botões primários */
+  --transicao-padrao: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease-in-out; /* Efeito de transição suave */
+  --raio-borda: 12px;             /* Arredondamento padrão para os cartões de interface */
+  
+  /* Variáveis exclusivas da tela de detalhes da obra */
+  --primary-color: #5E0B15;       /* Tom identitário repetido para consistência de escopo */
+  --primary-hover: #90323D;       /* Variação de hover para consistência de escopo */
+  --background: #D9CAB3;          /* Fundo geral mapeado para o escopo de detalhes */
+  --card-bg-detail: #ffffff;      /* Superfície branca do card de detalhes */
+  --text-main: #252b42;           /* Texto escuro mapeado para a sinopse e descrições */
+  --text-muted: #5E0B15;          /* Texto de destaque vinho em elementos de metadados */
+  --border-color-detail: #90323D; /* Cor da borda do container de detalhes */
+  --accent-gold: #BC8034;         /* Dourado para o botão de leitura principal */
+}
+
+/* Reset Global de Margens e Padding para evitar inconsistências entre navegadores */
+* {
+  box-sizing: border-box;         /* Inclui a borda e o padding no cálculo da largura e altura total do elemento */
+  margin: 0;                      /* Remove todas as margens externas padrão de fábrica */
+  padding: 0;                     /* Remove todos os preenchimentos internos padrão de fábrica */
+}
+
+/* Aplicação de regras globais adicionais para伪-elementos */
+*, *::before, *::after {
+  box-sizing: border-box;         /* Garante o modelo de box-sizing para elementos criados dinamicamente */
+  margin: 0;                      /* Zera as margens de pseudoelementos */
+  padding: 0;                     /* Zera o preenchimento de pseudoelementos */
+}
+
+/* Estilização da tag base body que envolve toda a aplicação */
+body {
+  background-color: var(--bg-main); /* Define a cor de fundo utilizando a variável terrosa */
+  font-family: 'Montserrat', 'Segoe UI', Roboto, sans-serif; /* Define a hierarquia de fontes do projeto */
+  color: var(--text-dark);        /* Define a cor de texto padrão como escura */
+  line-height: 1.5;               /* Define o espaçamento entre linhas para melhor leitura */
+  min-height: 100vh;              /* Garante que o corpo ocupe pelo menos toda a altura da tela visível */
+  display: flex;                  /* Utiliza layout flexbox para ordenação vertical dos blocos */
+  flex-direction: column;         /* Alinha os filhos do corpo (header, main, footer) em coluna */
+}
+
+
+/* ==========================================================================
+   TELA 1: HOME / CATÁLOGO GERAL (Navbar, Estrutura Central, Carrossel e Cards)
+   ========================================================================== */
+
+/* Elemento pai da barra de navegação global superior */
+.navbar {
+  background-color: var(--bg-nav);/* Define a cor de fundo escura (vinho) da barra */
+  padding: 16px 32px;             /* Define o espaçamento interno: 16px vertical e 32px horizontal */
+  display: flex;                  /* Habilita o modelo de caixa flexível para os elementos filhos */
+  flex-direction: column;         /* Organiza os filhos internos em fluxo vertical (top e pills) */
+  gap: 16px;                      /* Define um espaço firme de 16px entre a linha superior e os pills */
+  width: 100%;                    /* Garante que a barra estique por toda a largura horizontal da janela */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Aplica uma sombra sutil inferior para dar profundidade */
+}
+
+/* Container flexível superior dentro da barra de navegação */
+.navbar__top {
+  display: flex;                  /* Habilita flexbox para alinhamento horizontal */
+  align-items: center;            /* Centraliza verticalmente o logotipo, busca e ações */
+  justify-content: space-between; /* Distribui o espaço igualmente entre os blocos (esquerda, centro, direita) */
+  gap: 20px;                      /* Garante um espaçamento mínimo de 20px se a tela encolher */
+  flex-wrap: wrap;                /* Permite que os elementos quebrem de linha em telas pequenas */
+}
+
+/* Estilização do link de Logotipo da editora */
+.navbar__logo {
+  font-size: 1.35rem;             /* Define o tamanho da fonte do logotipo */
+  font-weight: 700;               /* Aplica peso em negrito para destacar a marca */
+  color: var(--text-dark);        /* Aplica a cor de texto escura definida no sistema */
+  text-decoration: none;          /* Remove o sublinhado padrão de links HTML */
+}
+
+/* Wrapper que envolve o formulário de busca e filtros */
+.navbar__search-wrapper {
+  display: flex;                  /* Habilita o flexbox para alinhar os componentes de busca */
+  align-items: center;            /* Centraliza verticalmente o formulário de busca */
+  gap: 16px;                      /* Espaço de 16px entre o formulário e elementos adjacentes */
+  flex-wrap: wrap;                /* Permite quebra de linha caso o espaço seja severamente reduzido */
+}
+
+/* Formulário de busca estrutural */
+.search-form {
+  display: flex;                  /* Garante que o input, select e botão fiquem colados em linha */
+  align-items: center;            /* Centraliza verticalmente os componentes internos da busca */
+}
+
+/* Campo de inserção de texto da busca */
+.search-form__input {
+  width: 220px;                   /* Define uma largura fixa confortável para digitação */
+  height: 38px;                   /* Define a altura padrão do campo de busca */
+  background-color: var(--bg-board); /* Define o fundo interno do input como branco */
+  border: 1px solid var(--border-color); /* Aplica uma borda fina cinza clara */
+  border-top-left-radius: 6px;    /* Arredonda o canto superior esquerdo */
+  border-bottom-left-radius: 6px; /* Arredonda o canto inferior esquerdo */
+  padding: 0 12px;                /* Adiciona um respiro interno nas laterais para o texto */
+  font-size: 13px;                /* Tamanho de fonte otimizado para leitura interna */
+  outline: none;                  /* Remove o contorno padrão do navegador quando focado */
+}
+
+/* Agrupamento do elemento seletor de categorias */
+.search-form__select-group {
+  position: relative;             /* Permite posicionamento absoluto de elementos internos se necessário */
+  display: flex;                  /* Mantém o fluxo flexível integrado */
+  align-items: center;            /* Alinha verticalmente o seletor */
+}
+
+/* Caixa de seleção/filtro ao lado do campo de busca */
+.search-form__select {
+  height: 38px;                   /* Alinha perfeitamente com a altura do campo de texto */
+  background-color: var(--bg-board); /* Fundo branco para uniformidade */
+  border: 1px solid var(--border-color); /* Borda fina acompanhando o padrão */
+  border-left: none;              /* Remove a borda esquerda para colar perfeitamente no input */
+  padding: 0 28px 0 10px;         /* Espaço interno com folga na direita para a seta customizada */
+  font-size: 13px;                /* Tamanho de fonte idêntico ao input de texto */
+  color: var(--text-dark);        /* Define a cor do texto interno do seletor */
+  appearance: none;               /* Oculta a seta padrão do sistema operacional do usuário */
+  cursor: pointer;                /* Transforma o ponteiro do mouse em mãozinha clicável */
+  outline: none;                  /* Desativa a linha de contorno padrão ao focar */
+}
+
+/* Botão de envio do formulário de pesquisa */
+.search-form__submit-btn {
+  width: 38px;                    /* Cria um formato perfeitamente quadrado (38x38) */
+  height: 38px;                   /* Altura perfeitamente alinhada com o formulário */
+  background-color: var(--accent-blue); /* Cor de destaque dourada para chamar o clique */
+  border: none;                   /* Elimina as bordas padrão de botões nativos */
+  border-top-right-radius: 6px;   /* Arredonda o canto superior direito para fechar o bloco */
+  border-bottom-right-radius: 6px;/* Arredonda o canto inferior direito para fechar o bloco */
+  cursor: pointer;                /* Indica elemento clicável ao passar o mouse */
+  display: flex;                  /* Habilita flexbox interno */
+  align-items: center;            /* Centraliza a lupa/ícone verticalmente */
+  justify-content: center;        /* Centraliza a lupa/ícone horizontalmente */
+  transition: opacity 0.2s;       /* Define uma transição rápida para efeitos visuais */
+}
+
+/* Efeito dinâmico ao passar o mouse por cima do botão de busca */
+.search-form__submit-btn:hover {
+  opacity: 0.9;                   /* Reduz ligeiramente a opacidade gerando efeito de iluminação */
+}
+
+/* Bloco que agrupa as ações de login/cadastro na navbar */
+.navbar__actions {
+  display: flex;                  /* Habilita o alinhamento em linha das ações */
+  align-items: center;            /* Centraliza os botões verticalmente */
+  gap: 10px;                      /* Espaço uniforme de 10px entre os botões de ação */
+}
+
+/* Botão padrão encapsulado na barra de navegação */
+.navbar__btn {
+  background-color: var(--bg-board); /* Fundo branco contrastando com a navbar escura */
+  color: var(--text-dark);        /* Texto escuro legível sobre o botão branco */
+  padding: 8px 16px;              /* Espaçamento interno confortável para área de clique */
+  border-radius: 20px;            /* Formato arredondado estilo pílula moderna */
+  font-size: 12px;                /* Letras compactas e elegantes */
+  font-weight: 600;               /* Peso semi-negrito para dar legibilidade */
+  text-decoration: none;          /* Elimina o sublinhado caso seja aplicado em tags <a> */
+  border: none;                   /* Remove bordas nativas indesejadas */
+  cursor: pointer;                /* Modifica o cursor para indicação de ação */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Pequena sombra para destacar a pílula do fundo */
+}
+
+/* Botão circular de ícone do usuário */
+.navbar__user-icon-btn {
+  width: 38px;                    /* Define a largura fixa para formar o círculo */
+  height: 38px;                   /* Define a altura idêntica para manter simetria */
+  border-radius: 50%;             /* Arredondamento total em 50% criando um círculo perfeito */
+  background-color: var(--accent-blue); /* Fundo dourado realçando o avatar do usuário */
+  border: none;                   /* Oculta as bordas estruturais de botões */
+  display: flex;                  /* Habilita flexbox para centralizar o conteúdo do ícone */
+  align-items: center;            /* Centralização vertical total */
+  justify-content: center;        /* Centralização horizontal total */
+  cursor: pointer;                /* Modifica o ponteiro indicando interatividade */
+  color: var(--text-light);       /* Garante que o ícone interno seja gerado na cor branca */
+}
+
+/* Lista de navegação horizontal por categorias (pills) */
+.navbar__pills {
+  display: flex;                  /* Renderiza os itens de categoria lado a lado */
+  gap: 12px;                      /* Distancia cada categoria por exatamente 12px */
+  list-style: none;               /* Elimina as bolinhas nativas de marcação de lista */
+  overflow-x: auto;               /* Adiciona barra de rolagem horizontal se as pílulas transbordarem */
+}
+
+/* Item de link individual dentro das categorias em pílula */
+.navbar__pill-link {
+  background-color: var(--bg-board); /* Fundo branco e limpo para cada categoria */
+  color: var(--text-dark);        /* Letras escuras facilitando a leitura imediata */
+  padding: 8px 24px;              /* Preenchimento estendido nas laterais para formato de pílula */
+  border-radius: 20px;            /* Bordas totalmente circulares nas extremidades */
+  text-decoration: none;          /* Remove sublinhados decorativos padrão */
+  font-size: 13px;                /* Tamanho ideal para leitura rápida de rótulos rápidos */
+  font-weight: 600;               /* Peso destacado para categorização */
+  display: inline-block;          /* Permite aplicação correta dos paddings estruturais */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Sombra leve inferior individual */
+  white-space: nowrap;            /* Impede que o texto quebre linha mesmo em telas estreitas */
+}
+
+/* Container de conteúdo principal que centraliza as seções da home */
+.main-content {
+  max-width: 1100px;              /* Limita o crescimento horizontal do site a 1100px */
+  margin: 30px auto;              /* Centraliza o site na tela horizontalmente e aplica margem vertical */
+  padding: 0 16px;                /* Margem interna de segurança para o conteúdo não colar nas bordas do monitor */
+  display: flex;                  /* Habilita flexbox para empilhar as seções horizontais */
+  flex-direction: column;         /* Dispõe os blocos e carrosséis um abaixo do outro */
+  gap: 24px;                      /* Espaçamento fixado em 24px entre cada seção */
+}
+
+/* Painel estrutural branco que abriga os carrosséis de livros */
+.board-container {
+  background-color: var(--bg-board); /* Fundo branco isolando a seção do fundo geral terroso */
+  border-radius: 28px;            /* Cantos acentuadamente arredondados gerando aspecto moderno */
+  padding: 24px 28px;             /* Amplo preenchimento interno para valorizar os livros */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombra imponente gerando relevo sobre a página */
+}
+
+/* Título de cada painel/categoria de livros */
+.board-container__title {
+  font-size: 1.2rem;              /* Tamanho balanceado para títulos internos de seções */
+  color: var(--text-dark);        /* Aplica cor padrão escura para contraste ideal */
+  margin-bottom: 16px;            /* Abre espaço inferior separando o título do carrossel */
+  font-weight: 600;               /* Aplica peso forte na fonte */
+  text-transform: lowercase;      /* Força estilisticamente todas as letras a ficarem minúsculas */
+}
+
+/* Componente de Carrossel de navegação de obras */
+.carousel {
+  display: flex;                  /* Dispõe os botões laterais e a trilha de livros em linha */
+  align-items: center;            /* Alinha verticalmente os botões e os cards */
+  gap: 12px;                      /* Separação de 12px entre os componentes do carrossel */
+}
+
+/* Botões laterais de navegação esquerda/direita do carrossel */
+.carousel__nav-btn {
+  background-color: var(--accent-blue); /* Fundo dourado padrão do sistema visual */
+  border: none;                   /* Remove contornos e bordas nativas do botão */
+  border-radius: 8px;             /* Cantos sutilmente suavizados */
+  width: 40px;                    /* Largura compacta verticalizada */
+  height: 210px;                  /* Altura esticada acompanhando o tamanho total dos cards */
+  display: flex;                  /* Habilita flexbox interno */
+  align-items: center;            /* Centraliza verticalmente a seta interna */
+  justify-content: center;        /* Centraliza horizontalmente a seta interna */
+  color: var(--text-light);       /* Garante seta branca contrastante */
+  cursor: pointer;                /* Modifica cursor para feedback visual */
+  flex-shrink: 0;                 /* Impede o botão de esmagar quando a tela diminuir */
+  transition: background-color 0.2s; /* Transição suave na mudança de cor */
+}
+
+/* Estado hover ao passar o mouse nos botões do carrossel */
+.carousel__nav-btn:hover {
+  background-color: #90323D;      /* Muda o fundo para o tom vinho intermediário no foco */
+}
+
+/* Trilha deslizante contendo a coleção de cards de livros */
+.carousel__track {
+  display: flex;                  /* Organiza os cards de livro estritamente lado a lado */
+  gap: 14px;                      /* Define um vão exato de 14px separando cada obra */
+  overflow-x: auto;               /* Permite rolagem horizontal livre caso exceda a largura */
+  padding: 6px 2px;               /* Preenchimento de segurança para não cortar sombras de cards */
+  width: 100%;                    /* Ocupa todo o espaço restante disponível no painel */
+  scrollbar-width: none;          /* Oculta nativamente a barra de rolagem horizontal em navegadores Firefox */
+}
+
+/* Pseudo-elemento para ocultar barra de rolagem em navegadores baseados em Webkit (Chrome, Edge, Safari) */
+.carousel__track::-webkit-scrollbar {
+  display: none;                  /* Desativa a exibição visual da barra mantendo a funcionalidade de deslizar */
+}
+
+/* Card individual representativo de uma obra literária */
+.book-card {
+  background-color: var(--card-bg); /* Cor interna vinho intermediária do card */
+  border-radius: 6px;             /* Leve arredondamento estrutural nos cantos */
+  width: 135px;                   /* Largura padrão definida para exibição de miniaturas */
+  flex-shrink: 0;                 /* Impede a deformação do tamanho do card dentro do carrossel */
+  display: flex;                  /* Organiza o conteúdo interno do card em fluxo vertical */
+  flex-direction: column;         /* Alinha os blocos em formato de coluna */
+  gap: 6px;                       /* Espaçamento interno minimalista de 6px entre seções */
+  padding: 8px;                   /* Margem interna para afastar o conteúdo das bordas do card */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15); /* Sombra projetada abaixo de cada livro */
+}
+
+/* Moldura interna onde fica disposta a capa do livro */
+.book-card__cover {
+  background-color: var(--card-inner-bg); /* Cor escura interna simulando profundidade da capa */
+  height: 95px;                   /* Altura padronizada para a área visual da capa */
+  width: 100%;                    /* Ocupa a largura total interna do card */
+  border-radius: 4px;             /* Arredondamento suave da capa */
+  overflow: hidden;               /* Corta qualquer imagem ou elemento que extrapolar os limites */
+}
+
+/* Grade geométrica decorativa abstrata para capas sem imagem padrão */
+.cover-grid {
+  width: 100%;                    /* Ocupa toda a largura da moldura */
+  height: 100%;                   /* Ocupa toda a altura da moldura */
+  border: 1.5px solid var(--accent-magenta); /* Borda interna na cor magenta escura */
+  position: relative;             /* Permite o posicionamento absoluto das linhas internas */
+}
+
+/* Regras de criação das linhas da grade abstrata via pseudo-elementos */
+.cover-grid::before,
+.cover-grid::after {
+  content: '';                    /* Inicializa o elemento vazio necessário para renderizar */
+  position: absolute;             /* Permite posicionar de forma exata sobre a capa */
+  background-color: var(--accent-magenta); /* Cor magenta das linhas de grade */
+}
+
+/* Configuração específica para a linha horizontal da grade */
+.cover-grid::before {
+  top: 50%;                       /* Posiciona exatamente no meio da altura */
+  left: 0;                        /* Inicia na borda esquerda lateral */
+  width: 100%;                    /* Estica horizontalmente por toda a largura */
+  height: 1.5px;                  /* Espessura fina da linha horizontal */
+  transform: translateY(-50%);    /* Ajuste de centralização perfeito no eixo Y */
+}
+
+/* Configuração específica para a linha vertical da grade */
+.cover-grid::after {
+  left: 50%;                      /* Posiciona exatamente no meio da largura */
+  top: 0;                         /* Inicia no topo superior da capa */
+  height: 100%;                   /* Estica verticalmente por toda a altura */
+  width: 1.5px;                   /* Espessura fina da linha vertical */
+  transform: translateX(-50%);    /* Ajuste de centralização perfeito no eixo X */
+}
+
+/* Cabeçalho informativo interno do card com o título do livro */
+.book-card__header {
+  background-color: var(--card-info-bg); /* Fundo acompanhando o tom intermediário */
+  padding: 4px;                   /* Respiro mínimo interno */
+  border-radius: 3px;             /* Cantos levemente suavizados */
+  display: flex;                  /* Habilita flexbox para alinhar o texto */
+  align-items: center;            /* Centraliza o título verticalmente */
+  justify-content: center;        /* Centraliza o título horizontalmente */
+  min-height: 28px;               /* Garante tamanho mínimo estável mesmo com títulos curtos */
+}
+
+/* Estilização tipográfica do título interno do card de livro */
+.book-card__title {
+  font-size: 10px;                /* Tamanho pequeno e cirúrgico devido ao espaço restrito */
+  font-weight: 700;               /* Negrito marcante para legibilidade do título */
+  color: var(--text-light);       /* Letras brancas para contraste absoluto sobre o fundo vinho */
+  text-align: center;             /* Alinhamento centralizado do texto */
+  white-space: nowrap;            /* Impede quebra de linha do título */
+  overflow: hidden;               /* Oculta letras que estourarem o espaço físico */
+  text-overflow: ellipsis;        /* Insere automaticamente reticências (...) no final do corte */
+  width: 100%;                    /* Vincula o tamanho do texto à largura total do bloco */
+}
+
+/* Bloco rastreador de progresso de leitura interno do card */
+.book-card__tracker {
+  display: flex;                  /* Habilita flexbox interno */
+  flex-direction: column;         /* Empilha a barra range e o contador numérico em coluna */
+  align-items: center;            /* Centraliza horizontalmente os componentes */
+  gap: 2px;                       /* Distância mínima de 2px entre a barra e o número */
+  background-color: rgba(0, 0, 0, 0.2); /* Fundo escurecido semitransparente isolando o tracker */
+  padding: 4px;                   /* Espaçamento interno protetivo */
+  border-radius: 3px;             /* Suavização dos cantos */
+}
+
+/* Barra de progresso deslizante de páginas lidas */
+.book-card__range {
+  -webkit-appearance: none;       /* Desativa a estilização nativa do Webkit */
+  appearance: none;               /* Desativa a estilização padrão do input range */
+  width: 100%;                    /* Ocupa toda a largura do componente de tracking */
+  height: 4px;                    /* Espessura fina e elegante para a trilha do slider */
+  background: #333333;            /* Cor escura de fundo para a trilha não percorrida */
+  border-radius: 2px;             /* Arredondamento da barra */
+  outline: none;                  /* Remove marcação padrão de foco */
+  cursor: pointer;                /* Sinaliza manipulação interativa */
+}
+
+/* Customização do marcador de arrasto do controle de progresso (Webkit) */
+.book-card__range::-webkit-slider-thumb {
+  -webkit-appearance: none;       /* Remove visual padrão de fábrica do indicador */
+  width: 10px;                    /* Largura compacta do círculo arrastável */
+  height: 10px;                   /* Altura simétrica para formato esférico */
+  border-radius: 50%;             /* Torna o marcador totalmente redondo */
+  background: var(--text-light);  /* Círculo interno branco */
+  border: 1.5px solid var(--accent-blue); /* Borda dourada realçando o pino indicador */
+}
+
+/* Exibição textual da numeração do progresso de leitura */
+.book-card__count {
+  font-size: 8.5px;               /* Tipografia microscópica focada em dados numéricos */
+  font-weight: 600;               /* Peso evidente para visualização clara */
+  color: var(--text-light);       /* Cor branca para leitura precisa */
+}
+
+/* Bloco inferior contendo botões de ação e nota do card de livro */
+.book-card__actions {
+  background-color: var(--card-action-bg); /* Tom de fundo escuro para fechar a base do card */
+  border-radius: 3px;             /* Pequeno ajuste nos cantos inferiores */
+  height: 26px;                   /* Altura reduzida e fixa para barra de ferramentas */
+  display: flex;                  /* Disposição horizontal dos botões internos */
+  align-items: center;            /* Centraliza as ações verticalmente */
+  justify-content: space-around;  /* Distribui as ações com espaçamento simétrico ao redor */
+  padding: 0 2px;                 /* Proteção lateral leve */
+}
+
+/* Botões individuais de ação dentro do card (ex: favoritar, marcar lido) */
+.book-card__action-btn {
+  background: none;               /* Zera qualquer fundo nativo */
+  border: none;                   /* Oculta as bordas padrão */
+  color: #dddddd;                 /* Tom cinza claro para ícones secundários em repouso */
+  cursor: pointer;                /* Indica interatividade */
+  display: flex;                  /* Centraliza perfeitamente o elemento vetorial interno */
+  align-items: center;            /* Alinhamento vertical do SVG */
+  justify-content: center;        /* Alinhamento horizontal do SVG */
+}
+
+/* Ajuste dimensional para os ícones vetoriais SVG de ação */
+.book-card__action-btn svg {
+  width: 13px;                    /* Largura contida para o ícone */
+  height: 13px;                   /* Altura equivalente preservando proporções */
+}
+
+/* Elemento indicador de score/nota atribuída ao livro no card */
+.book-card__score {
+  font-size: 9px;                 /* Compacto acompanhando o padrão do card */
+  font-weight: 800;               /* Negrito extra forte para destacar a avaliação */
+  color: var(--text-light);       /* Letras brancas evidentes */
+  text-decoration: underline;    /* Sublinhado clássico enfatizando o valor clicável ou estático */
+}
+
+
+/* ==========================================================================
+   TELA 2: PERFIL DO USUÁRIO (Apresentação, Feed de Atividades e Controles)
+   ========================================================================== */
+
+/* Cartão principal antigo de feed/visão geral do usuário */
+.profile-feed {
+  background-color: var(--bg-board); /* Superfície de fundo branco plano */
+  padding: 24px;                  /* Preenchimento de conforto interno */
+  border-radius: 28px;            /* Cantos arredondados padrão de painéis grandes */
+  display: flex;                  /* Organiza em linha o avatar e os textos */
+  align-items: center;            /* Centraliza verticalmente o avatar com o bloco de texto */
+  gap: 20px;                      /* Vão de 20px isolando os elementos estruturais */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15); /* Sombra marcante de sobreposição */
+}
+
+/* Círculo representativo do avatar do usuário no feed secundário */
+.profile-feed__avatar {
+  width: 80px;                    /* Largura padrão do círculo */
+  height: 80px;                   /* Altura simétrica */
+  background-color: var(--accent-blue); /* Fundo dourado realçando a foto/inicial */
+  border-radius: 50%;             /* Arredondamento esférico total */
+  display: flex;                  /* Habilita flexbox */
+  align-items: center;            /* Centraliza verticalmente o conteúdo interno */
+  justify-content: center;        /* Centraliza horizontalmente o conteúdo interno */
+  color: var(--text-light);       /* Texto ou ícone em branco */
+  flex-shrink: 0;                 /* Previne deformações em telas estreitas */
+}
+
+/* Título de cabeçalho interno do bloco de informações do feed */
+.profile-feed__info h2 {
+  font-size: 1.25rem;             /* Tamanho em destaque para o nome do leitor */
+  color: var(--text-dark);        /* Cor escura principal */
+}
+
+/* Texto descritivo/subtítulo interno do bloco de informações do feed */
+.profile-feed__info p {
+  font-size: 0.9rem;              /* Fonte sutilmente reduzida para dados secundários */
+  color: #64748b;                 /* Tom cinza azulado suave indicando passividade */
+}
+
+/* Bloco agrupador de botões de controle e filtragem do perfil do usuário */
+.profile-controls {
+  display: flex;                  /* Dispõe os botões controladores lado a lado */
+  gap: 12px;                      /* Afastamento padrão de 12px entre os botões */
+  flex-wrap: wrap;                /* Permite quebra de linha se houver muitos botões na tela */
+  justify-content: center;        /* Centraliza o bloco de botões horizontalmente na tela */
+  background-color: var(--bg-board); /* Fundo branco unificado */
+  padding: 16px;                  /* Espaçamento interno padrão */
+  border-radius: 28px;            /* Bordas suavizadas circundantes */
+}
+
+/* Cartão mestre moderno de apresentação do perfil do usuário atualizado */
+.perfil-apresentacao {
+  background-color: var(--bg-board); /* Garante a base de cor em branco sólido */
+  padding: 24px;                  /* Área interna de respiro de 24px em todas as direções */
+  border-radius: 28px;            /* Cantos curvos combinando com o ecossistema visual */
+  display: flex;                  /* Habilita fluxo flexível horizontal */
+  align-items: center;            /* Mantém o avatar nivelado ao meio com os textos */
+  gap: 20px;                      /* Espaço divisório fixo entre imagem e informações */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Sombreamento marcante gerando relevo */
+  margin-bottom: 24px;            /* Empurra os elementos de feed inferiores para baixo */
+}
+
+/* Elemento circular principal do avatar do usuário */
+.perfil-apresentacao__avatar {
+  width: 80px;                    /* Largura definida em proporção ideal para leitura visual */
+  height: 80px;                   /* Altura simétrica mantendo o formato estável */
+  background-color: var(--accent-blue); /* Fundo dourado característico da identidade */
+  border-radius: 50%;             /* Transforma o bloco quadrado em uma circunferência */
+  display: flex;                  /* Permite centralizar a letra inicial ou ícone */
+  align-items: center;            /* Alinhamento de centro vertical */
+  justify-content: center;        /* Alinhamento de centro horizontal */
+  color: var(--text-light);       /* Garante que o caractere interno seja branco */
+  flex-shrink: 0;                 /* Impede o achatamento do avatar em resoluções mobile */
+}
+
+/* Título com o nome do usuário na seção de apresentação */
+.perfil-apresentacao__info h2 {
+  font-size: 1.25rem;             /* Tamanho hierárquico principal em escala moderada */
+  color: var(--text-dark);        /* Aplica tom escuro de legibilidade */
+  margin-bottom: 4px;             /* Pequeno afastamento para a descrição/biografia abaixo */
+}
+
+/* Parágrafo descritivo/biografia curta do perfil do leitor */
+.perfil-apresentacao__info p {
+  font-size: 0.9rem;              /* Tamanho reduzido ideal para textos descritivos longos */
+  color: #64748b;                 /* Cinza ardósia sutil que reduz o peso visual do bloco */
+  line-height: 1.4;               /* Espaçamento vertical entre linhas confortável */
+}
+
+
+/* ==========================================================================
+   TELA 3: AUTENTICAÇÃO E CADASTRO (Módulo Deslizante Dinâmico e Formulários)
+   ========================================================================== */
+
+/* Cabeçalho principal estrutural da área isolada de login */
+.cabecalho-principal {
+    background-color: var(--cor-verde-marca); /* Aplica o fundo institucional vinho */
+    padding: 1rem 2rem;           /* Preenchimento: 1rem superior/inferior, 2rem laterais */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sombra sutil delimitando o término do topo */
+}
+
+/* Container de alinhamento interno do cabeçalho de login */
+.cabecalho-principal__container {
+    max-width: 1200px;            /* Alinha o topo com a largura máxima padrão do portal */
+    margin: 0 auto;               /* Centraliza horizontalmente o bloco interno */
+    display: flex;                /* Habilita o layout flex horizontal */
+    justify-content: space-between; /* Isola a logo na esquerda e os links na direita */
+    align-items: center;          /* Centraliza verticalmente os elementos de texto */
+}
+
+/* Identificador textual/logo específico do fluxo de login */
+.cabecalho-principal__logo {
+    color: #000000;               /* Tom preto puro para contraste rústico */
+    font-weight: 700;             /* Peso forte evidenciando a marca */
+    font-size: 1.25rem;           /* Tamanho médio de destaque */
+    text-decoration: none;        /* Oculta marcas de link */
+}
+
+/* Lista ordenada de links utilitários de navegação superior */
+.navegacao-topo__lista {
+    display: flex;                /* Disposição lado a lado dos itens de lista */
+    list-style: none;             /* Elimina marcações de marcadores nativos */
+    gap: 1.5rem;                  /* Espaço de 1.5rem entre os links de suporte */
+}
+
+/* Links internos de navegação do topo de autenticação */
+.navegacao-topo__link {
+    color: #000000;               /* Tom preto para harmonização */
+    text-decoration: none;        /* Remove sublinhados iniciais */
+    font-weight: 500;             /* Peso médio elegante */
+    font-size: 0.95rem;           /* Fonte compacta */
+}
+
+/* Efeito dinâmico ao pairar sobre os links de ajuda do topo */
+.navegacao-topo__link:hover {
+    text-decoration: underline;   /* Adiciona sublinhado clássico sinalizando foco */
+}
+
+/* Bloco invólucro que centraliza o formulário de login na tela inteira */
+.conteudo-principal {
+    flex: 1;                      /* Força o container a expandir absorvendo todo o espaço vertical livre */
+    display: flex;                /* Ativa flexbox para controle absoluto de posicionamento */
+    justify-content: center;      /* Centraliza o cartão de autenticação horizontalmente */
+    align-items: center;          /* Centraliza o cartão de autenticação verticalmente na tela */
+    padding: 2rem 1rem;           /* Margem protetiva interna contra esmagamento em telas minúsculas */
+}
+
+/* Caixa master de autenticação que encapsula as telas de Login e Registro */
+.auth-container {
+    position: relative;           /* Define a base posicional estável para as telas absolutas internas */
+    overflow: hidden;             /* Esconde e corta a tela que estiver deslocada para as laterais */
+    width: 100%;                  /* Força adaptabilidade responsiva em telas mobile */
+    max-width: 440px;             /* Limita a largura máxima do formulário para manter elegância estrutural */
+    min-height: 540px;            /* Altura mínima garantida para acomodar todos os campos confortavelmente */
+    background-color: var(--cor-superficie); /* Superfície interna inteiramente branca */
+    border-radius: var(--raio-borda); /* Cantos suavizados conforme o token do design system */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05); /* Sombra suave simulando flutuação tridimensional */
+}
+
+/* Painel comum aplicável a ambas as telas internas (Login e Registro) */
+.auth-screen {
+    position: absolute;           /* Remove a tela do fluxo comum sobrepondo-as perfeitamente */
+    top: 0;                       /* Alinha no topo do container pai */
+    left: 0;                      /* Alinha na lateral esquerda do container pai */
+    width: 100%;                  /* Ocupa a largura total interna disponível */
+    height: 100%;                 /* Ocupa a altura total interna disponível */
+    padding: 2.5rem;              /* Amplo preenchimento interno para organização dos inputs */
+    display: flex;                /* Organiza os formulários verticalmente em eixos flexíveis */
+    flex-direction: column;       /* Alinha os blocos de cima para baixo */
+    justify-content: center;      /* Distribui e centraliza o fluxo de campos ao meio */
+    background-color: var(--cor-superficie); /* Base branca individual */
+    transition: var(--transicao-padrao); /* Vincula a animação de deslocamento ao token central */
+    will-change: transform, opacity; /* Alerta o navegador para otimização de performance de animação */
+}
+
+/* Configuração inicial restritiva para a tela de registro (escondida por padrão) */
+.auth-screen--register {
+    transform: translateX(100%);  /* Desloca a tela inteiramente para fora do campo de visão (direita) */
+    opacity: 0;                   /* Torna a tela completamente invisível em repouso */
+    pointer-events: none;         /* Bloqueia interações, cliques ou focos de teclado enquanto oculta */
+}
+
+/* Gatilho CSS acionado via classe pai para ocultar o painel de Login */
+.auth-container--show-register .auth-screen--login {
+    transform: translateX(-100%); /* Joga a tela de login para fora do campo visível (esquerda) */
+    opacity: 0;                   /* Oculta visivelmente o login */
+    pointer-events: none;         /* Desativa os inputs de login para navegação */
+}
+
+/* Gatilho CSS acionado via classe pai para revelar o painel de Registro */
+.auth-container--show-register .auth-screen--register {
+    transform: translateX(0);     /* Traz a tela de registro de volta para a posição central perfeita */
+    opacity: 1;                   /* Revela integralmente a opacidade do painel */
+    pointer-events: auto;         /* Habilita campos, interações e digitação no formulário */
+}
+
+/* Bloco superior de títulos dentro do painel de login/cadastro */
+.auth-screen__cabecalho {
+    margin-bottom: 1.75rem;       /* Margem inferior empurrando o formulário para baixo */
+    text-align: center;           /* Centraliza os títulos textuais */
+}
+
+/* Título principal de ação do formulário */
+.auth-screen__titulo {
+    font-size: 1.5rem;            /* Fonte robusta e de leitura imediata */
+    font-weight: 700;             /* Aplica negrito forte */
+    color: var(--cor-texto-principal); /* Cor escura de alta legibilidade */
+    margin-bottom: 0.35rem;       /* Distancia sutilmente do subtítulo explicativo */
+}
+
+/* Subtítulo ou texto de apoio do formulário */
+.auth-screen__subtitulo {
+    font-size: 0.85rem;           /* Fonte reduzida discreta */
+    color: var(--cor-texto-secundario); /* Tom cinza médio suavizado */
+}
+
+/* Estrutura do formulário de entrada de credenciais */
+.auth-form {
+    display: flex;                /* Habilita layout flexbox */
+    flex-direction: column;       /* Dispõe os grupos de input estritamente empilhados */
+    gap: 1rem;                    /* Vão padrão de 1rem separando cada campo de entrada */
+}
+
+/* Bloco isolador contendo rótulo e input */
+.auth-form__grupo {
+    display: flex;                /* Habilita alinhamento interno */
+    flex-direction: column;       /* Garante que o rótulo fique imediatamente acima do input */
+    gap: 0.3rem;                  /* Espaço mínimo separando o texto explicativo do campo */
+}
+
+/* Rótulo textual indicador do campo (Label) */
+.auth-form__rotulo {
+    font-size: 0.85rem;           /* Texto compacto e focado */
+    font-weight: 600;             /* Peso semi-negrito auxiliando a identificação */
+    color: var(--cor-texto-principal); /* Tom escuro estável */
+}
+
+/* Campo de entrada de dados textual (Input) */
+.auth-form__campo {
+    padding: 0.65rem 0.85rem;     /* Preenchimento confortável para digitação fluida */
+    border: 1px solid var(--cor-borda); /* Borda cinza suave delimitadora */
+    border-radius: 8px;           /* Cantos levemente arredondados */
+    font-size: 0.9rem;            /* Tamanho de fonte padrão para inputs de dados */
+    outline: none;                /* Desativa linhas de realce nativas dos navegadores */
+    transition: border-color 0.2s, box-shadow 0.2s; /* Transição suave para estados de foco */
+    background-color: #fafafa;    /* Fundo levemente acinzentado em estado de repouso */
+}
+
+/* Estado dinâmico ativado quando o usuário clica para digitar no campo */
+.auth-form__campo:focus {
+    border-color: var(--cor-primaria); /* Altera a borda para a cor vinho primária */
+    box-shadow: 0 0 0 3px rgba(144, 50, 61, 0.15); /* Aplica halo de luz suave avermelhado ao redor */
+    background-color: var(--cor-superficie); /* Torna o fundo do input inteiramente branco */
+}
+
+/* Bloco agrupador de ações e botões inferiores do formulário */
+.auth-form__acoes {
+    display: flex;                /* Ativa layout flexbox */
+    flex-direction: column;       /* Empilha os botões verticalmente */
+    gap: 0.65rem;                 /* Afastamento de 0.65rem entre botões */
+    margin-top: 0.5rem;           /* Espaço de segurança separando o formulário das ações */
+}
+
+/* Base comum de botões da interface de login */
+.auth-botao {
+    padding: 0.7rem 1rem;         /* Preenchimento interno padrão dos botões */
+    border-radius: 8px;           /* Arredondamento padrão dos botões */
+    font-size: 0.95rem;           /* Tamanho de fonte otimizado */
+    font-weight: 600;             /* Peso em negrito para comandos evidentes */
+    cursor: pointer;              /* Modifica o ponteiro do mouse para botão clicável */
+    border: none;                 /* Remove bordas estruturais de fábrica */
+    transition: background-color 0.2s, transform 0.1s; /* Transição para interações táteis */
+    text-align: center;           /* Centraliza o texto interno do botão */
+}
+
+/* Efeito clássico de clique pressionado em botões */
+.auth-botao:active {
+    transform: scale(0.98);       /* Reduz microscopicamente o tamanho simulando clique físico */
+}
+
+/* Botão de comando principal (ex: Entrar / Cadastrar) */
+.auth-botao--primario {
+    background-color: var(--cor-primaria); /* Aplica fundo vinho primário */
+    color: #ffffff;               /* Força texto inteiramente branco */
+}
+
+/* Alteração visual ao passar o mouse no botão primário */
+.auth-botao--primario:hover {
+    background-color: var(--cor-primaria-hover); /* Escurece o tom vinho indicando atividade */
+}
+
+/* Botão de comando alternativo secundário (ex: Criar Conta / Voltar) */
+.auth-botao--secundario {
+    background-color: transparent;/* Zera o fundo tornando-o transparente */
+    color: var(--cor-primaria);   /* Letras na cor vinho principal */
+    border: 1px solid var(--cor-primaria); /* Aplica contorno vazado na cor vinho */
+}
+
+/* Efeito visual de foco para o botão alternativo secundário */
+.auth-botao--secundario:hover {
+    background-color: rgba(144, 50, 61, 0.05); /* Preenche sutilmente o fundo com reflexo avermelhado */
+}
+
+
+/* ==========================================================================
+   TELA 4: DETALHES DA OBRA (Visualização Detalhada, Ficha Técnica e Responsivo)
+   ========================================================================== */
+
+/* Estilização da tag de cabeçalho específica da página de detalhes */
+header {
+  background-color: var(--primary-color); /* Fundo vinho identitário */
+  border-bottom: 3px solid var(--accent-gold); /* Borda inferior dourada espessa de acabamento */
+  padding: 1rem 2rem;             /* Preenchimento interno do topo */
+  text-align: center;             /* Centraliza o título textual principal */
+}
+
+/* Título inserido dentro do cabeçalho da página de detalhes */
+header h1 {
+  margin: 0;                      /* Garante remoção de margens parasitas */
+  font-size: 1.5rem;              /* Tamanho volumoso estável */
+  color: #ffffff;                 /* Letras em branco puro */
+}
+
+/* Container de alinhamento estrutural central da tela de detalhes */
+.container {
+  max-width: 1000px;              /* Limita a largura a 1000px isolando a ficha técnica */
+  margin: 2rem auto;              /* Centraliza o bloco na horizontal e afasta do topo/rodapé */
+  padding: 0 1.5rem;              /* Respiro lateral de segurança em telas médias */
+}
+
+/* Link de retorno para a página inicial (Voltar) */
+.back-link {
+  display: inline-block;          /* Permite dimensionamento correto de margens */
+  margin-bottom: 1.5rem;          /* Isola o link da ficha técnica abaixo */
+  color: var(--primary-color);    /* Cor vinho padrão para links externos ativos */
+  text-decoration: none;          /* Oculta sublinhados nativos */
+  font-weight: 600;               /* Peso destacado marcante */
+  transition: color 0.2s ease;    /* Transição suave na tonalidade de cor */
+}
+
+/* Estado de foco do link de retorno */
+.back-link:hover {
+  text-decoration: underline;     /* Adiciona sublinhado sinalizando clique iminente */
+  color: var(--primary-hover);    /* Modifica para o tom vinho intermediário */
+}
+
+/* Cartão master estruturado que exibe a ficha completa do livro */
+.book-details-card {
+  background: var(--card-bg-detail); /* Fundo branco limpo realçando os dados textuais */
+  border: 1px solid var(--border-color-detail); /* Moldura fina circundante na cor vinho */
+  border-radius: 8px;             /* Cantos sutilmente suavizados */
+  padding: 2.5rem;                /* Generoso preenchimento interno organizando os blocos */
+  display: grid;                  /* Habilita o modelo CSS Grid Layout para divisão em colunas */
+  grid-template-columns: 300px 1fr; /* Coluna fixa de 300px para a capa e restante fluido para dados */
+  gap: 2.5rem;                    /* Vão divisório imponente isolando a imagem do conteúdo escrito */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); /* Sombreamento suave de assentamento da página */
+}
+
+/* Bloco enquadrador da imagem de capa */
+.book-cover-wrapper {
+  text-align: center;             /* Garante centralização interna do bloco */
+}
+
+/* Tag de imagem representativa da capa em alta definição */
+.book-cover {
+  width: 100%;                    /* Adapta a largura ao limite máximo da coluna de 300px */
+  max-width: 280px;               /* Estabelece teto protetivo de largura para a imagem */
+  height: auto;                   /* Calcula a altura proporcionalmente evitando distorções */
+  border-radius: 6px;             /* Cantos da foto sutilmente arredondados */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.15), 0 4px 6px -2px rgba(0, 0, 0, 0.1); /* Combo de sombras simulando relevo realístico de livro físico */
+  background-color: #edf2f7;      /* Cor de fundo neutra exibida enquanto o arquivo de imagem carrega */
+  aspect-ratio: 2/3;              /* Força estritamente a proporção padrão clássica de capas literárias */
+  object-fit: cover;              /* Garante o preenchimento total do espaço sem amassar o design original */
+  border: 2px solid var(--border-color-detail); /* Moldura protetiva na cor vinho circundando a foto */
+}
+
+/* Título principal do livro na visão detalhada */
+.book-info h2 {
+  margin-top: 0;                  /* Zera margens superiores alinhando perfeitamente ao topo da imagem */
+  font-size: 2.25rem;             /* Letras imponentes em tamanho gigante de destaque */
+  color: var(--primary-color);    /* Tom vinho forte definindo a soberania do título */
+  line-height: 1.2;               /* Ajuste fino vertical aproximando linhas de títulos longos */
+}
+
+/* Linha identificadora do autor da obra literária */
+.book-author {
+  font-size: 1.25rem;             /* Tamanho médio elegante */
+  color: var(--accent-gold);      /* Cor dourada realçando a autoria */
+  font-weight: 600;               /* Peso destacado */
+  margin-top: -0.5rem;            /* Aproxima o autor do título principal acima */
+  margin-bottom: 1.5rem;          /* Afasta o bloco das especificações técnicas abaixo */
+}
+
+/* Bloco horizontal contendo metadados técnicos (ano, páginas, editora) */
+.book-meta {
+  display: flex;                  /* Renderiza as informações técnicas lado a lado em linha */
+  gap: 1.5rem;                    /* Vão divisório fixo separando cada item de metadado */
+  margin-bottom: 2rem;            /* Espaçamento empurrando a sinopse inferior */
+  font-size: 0.9rem;              /* Fonte reduzida para dados técnicos e catalográficos */
+  color: #4b5563;                 /* Tom cinza fosco equilibrado */
+  border-top: 1px solid var(--border-color-detail); /* Linha fina superior delimitadora */
+  border-bottom: 1px solid var(--border-color-detail); /* Linha fina inferior delimitadora */
+  padding: 0.75rem 0;             /* Espaçamento vertical interno isolando o bloco pelas linhas */
+}
+
+/* Elemento forte embutido nos metadados catalográficos */
+.meta-item strong {
+  color: var(--primary-color);    /* Destaca os rótulos (Ex: "Ano:") na cor vinho institucional */
+}
+
+/* Bloco de conteúdo contendo o resumo/sinopse da obra */
+.book-synopsis {
+  margin-bottom: 2.5rem;          /* Espaço estendido isolando o texto do botão de ação final */
+}
+
+/* Título da seção de sinopse */
+.book-synopsis h3 {
+  font-size: 1.25rem;             /* Tamanho moderado de cabeçalho de seção */
+  margin-bottom: 0.7rem;          /* Afasta o título do parágrafo explicativo logo abaixo */
+}
+
+/* Parágrafo de texto corrido da sinopse */
+.book-synopsis p {
+  color: var(--text-main);        /* Tom escuro padrão garantindo excelente contraste de leitura */
+  font-size: 1.05rem;             /* Fonte ligeiramente ampliada para leitura confortável de textos longos */
+}
+
+/* Botão principal de comando para iniciar a leitura (Call to Action) */
+.btn-read {
+  display: inline-block;          /* Permite atribuição exata de preenchimentos e controle de caixa */
+  background-color: var(--accent-gold); /* Fundo dourado chamativo direcionando o clique do leitor */
+  color: white;                   /* Letras brancas em contraste absoluto com o dourado */
+  padding: 0.85rem 2.5rem;        /* Amplo preenchimento interno gerando um botão imponente */
+  font-size: 1.1rem;              /* Fonte de comando expandida */
+  font-weight: 600;               /* Peso em negrito realçando a ação */
+  border: none;                   /* Zera bordas nativas de botões */
+  border-radius: 5px;             /* Cantos sutilmente suavizados */
+  text-decoration: none;          /* Remove marcações de sublinhado de tags <a> */
+  text-align: center;             /* Garante centralização do texto interno */
+  cursor: pointer;                /* Altera o cursor indicando gatilho de clique ativo */
+  transition: background-color 0.2s ease, transform 0.1s ease; /* Transições suaves sincronizadas para interações */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra projetada na base gerando elevação tátil */
+}
+
+/* Estado hover ativado ao passar o mouse por cima do botão de leitura */
+.btn-read:hover {
+  background-color: #a36d2a;      /* Escurece sutilmente o dourado simulando profundidade e foco */
+}
+
+/* Estado ativo gerado no exato instante do clique físico do usuário */
+.btn-read:active {
+  transform: scale(0.98);         /* Sofre leve compressão mecânica simulando o clique de uma tecla física */
+}
+
+
+/* ==========================================================================
+   REGRAS DE RESPONSIVIDADE (Media Queries para Adaptação Mobile e Tablets)
+   ========================================================================== */
+
+/* Ponto de quebra ativado em janelas de visualização com largura de até 768px */
+@media (max-width: 768px) {
+  
+  /* Adaptação estrutural do cartão de detalhes para telas menores */
+  .book-details-card {
+    grid-template-columns: 1fr;   /* Desativa as duas colunas laterais convertendo em uma única coluna vertical */
+    gap: 2rem;                    /* Reduz o vão divisório devido ao espaço compacto */
+    padding: 1.5rem;              /* Encolhe o preenchimento protetivo interno aproveitando melhor a tela */
+  }
+
+  /* Ajuste de alinhamento do wrapper da foto em mobile */
+  .book-cover-wrapper {
+    display: flex;                /* Habilita flexbox para manipulação flexível do bloco */
+    justify-content: center;      /* Garante a centralização perfeita da imagem na horizontal da tela */
+  }
+
+  /* Redimensionamento responsivo da imagem da capa em celulares */
+  .book-cover {
+    max-width: 200px;             /* Encolhe o teto máximo da capa de 280px para 200px mantendo elegância */
+  }
+
+  /* Redução tipográfica do título do livro em telas pequenas */
+  .book-info h2 {
+    font-size: 1.75rem;           /* Reduz a fonte de 2.25rem para 1.75rem evitando quebras desordenadas */
+  }
+
+  /* Ajuste estrutural do bloco de especificações técnicas (metadados) */
+  .book-meta {
+    flex-direction: column;       /* Transforma o fluxo horizontal de metadados em uma lista vertical */
+    gap: 0.5rem;                  /* Diminui o vão para 0.5rem aproximando as linhas */
+    padding: 1rem 0;              /* Ajusta as margens internas verticais */
+  }
+
+  /* Conversão do botão de leitura para modelo bloco total */
+  .btn-read {
+    display: block;               /* Transforma o botão em bloco que ocupa toda a linha */
+    width: 100%;                  /* Estica horizontalmente cobrindo 100% da largura útil da tela */
+    box-sizing: border-box;       /* Assegura o cálculo perfeito de tamanho incluindo as bordas internas */
+  }
+}

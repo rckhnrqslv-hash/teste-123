@@ -1,0 +1,231 @@
+<!-- 
+  ===================================================================
+  SISTEMA BOOKSHELF - TELA DE PERFIL DO USUÁRIO (ESTILO INSTAGRAM)
+  ===================================================================
+  Este documento representa o painel do leitor logado na plataforma.
+  Ele herda toda a identidade visual, fontes, cores e a navbar da Home,
+  apresentando uma seção estilo rede social e um sistema de 4 abas dinâmicas.
+  ===================================================================
+-->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookShelf - Perfil do Usuário</title>
+  <!-- Link para a mesma folha de estilos unificada da Home para manter o padrão visual -->
+  <link rel="stylesheet" href="/componentes/static/nav4.css">
+</head>
+<body>
+
+  <!-- NAVBAR UNIFICADA (Idêntica à Home para padronização completa de layout) -->
+  <nav class="navbar" aria-label="Navegação Principal">
+    <div class="navbar__top">
+      <a href="index.html" class="navbar__logo">BookShelf</a>
+
+      <div class="navbar__search-wrapper">
+        <form class="search-form" action="#" method="GET">
+          <input type="text" name="search" class="search-form__input" placeholder="Search" aria-label="Pesquisar">
+          <div class="search-form__select-group">
+            <select name="category" class="search-form__select">
+              <option value="todos">todos</option>
+              <option value="autores">autores</option>
+              <option value="titulos">títulos</option>
+            </select>
+          </div>
+          <button type="submit" class="search-form__submit-btn" aria-label="Buscar">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1 6.53 6.53 0 0 0 1.398-1.4" fill="#FFFFFF"/></svg>
+          </button>
+        </form>
+
+        <div class="navbar__actions">
+          <!-- Botão arredondado com ícone para retornar à home -->
+          <button class="navbar__user-icon-btn" id="homeToggleBtn" title="Voltar à Home">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <ul class="navbar__pills">
+      <li><a href="index.html" class="navbar__pill-link">Home</a></li>
+      <li><a href="#" class="navbar__pill-link">Lançamentos</a></li>
+      <li><a href="#" class="navbar__pill-link">Autores</a></li>
+      <li><a href="#" class="navbar__pill-link">Artigos</a></li>
+    </ul>
+  </nav>
+
+  <!-- CONTEÚDO PRINCIPAL DO PERFIL -->
+  <main class="main-content">
+
+    <!-- FEED DE APRESENTAÇÃO (Design inspirado no Instagram para engajamento) -->
+    <section class="profile-feed">
+      <!-- Avatar circular grande com fundo na cor dourada de destaque -->
+      <div class="profile-feed__avatar">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+      </div>
+      <!-- Bloco de Informações Textuais e Biografia do Usuário -->
+      <div class="profile-feed__info">
+        <h2>Leitor Ávido</h2>
+        <p>Explorando clássicos da literatura brasileira e escrevendo novos horizontes literários no ecossistema BookShelf.</p>
+      </div>
+    </section>
+
+    <!-- BARRA DE COMPONENTES DE CONTROLE (Abas Requisitadas e Padronizadas com Botões Arredondados) -->
+    <nav class="profile-controls" aria-label="Ferramentas do perfil" style="display: flex; gap: 12px; justify-content: center; background-color: white; padding: 16px; border-radius: 28px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); margin-bottom: 24px;">
+      <button class="navbar__btn" style="background-color: var(--accent-magenta, #90323D); color: white;" data-tab="shelf">Prateleira Virtual</button>
+      <button class="navbar__btn" data-tab="draft">Bloco de Rascunho</button>
+      <button class="navbar__btn" data-tab="chat">Chat de Bate-papo</button>
+      <button class="navbar__btn" data-tab="publish">Revisão e Publicação</button>
+    </nav>
+
+    <!-- MAIN DINÂMICO (Renderiza o conteúdo detalhado conforme a aba ativa selecionada) -->
+    <div id="dynamicMainContainer" class="dynamic-tool-area" style="display: flex; flex-direction: column; gap: 24px;">
+      
+      <!-- [ABA 1] ABA PADRÃO: PRATELEIRA VIRTUAL (Organização de Favoritos e Escritos) -->
+      <section id="tab-shelf" class="board-container" style="box-shadow: none; padding: 0;">
+        <h2 class="board-container__title">suas literaturas salvas (prateleira virtual)</h2>
+        <p style="font-size: 0.95rem; color: #4b5563; margin-bottom: 16px;">Organize e gerencie seus livros salvos e favoritos como em uma estante de verdade.</p>
+        <div class="carousel">
+          <div class="carousel__track">
+            <!-- Card de Livro 1 (Padrão Home Unificado) -->
+            <article class="book-card">
+              <div class="book-card__cover"><div class="cover-grid"></div></div>
+              <header class="book-card__header"><h3 class="book-card__title">Dom Casmurro</h3></header>
+              <div class="book-card__tracker">
+                <input type="range" class="book-card__range" min="0" max="250" value="80" disabled>
+                <output class="book-card__count">80 / 250 pág.</output>
+              </div>
+              <footer class="book-card__actions"><span class="book-card__score">100</span></footer>
+            </article>
+            <!-- Card de Livro 2 (Padrão Home Unificado) -->
+            <article class="book-card">
+              <div class="book-card__cover"><div class="cover-grid"></div></div>
+              <header class="book-card__header"><h3 class="book-card__title">O Cortiço</h3></header>
+              <div class="book-card__tracker">
+                <input type="range" class="book-card__range" min="0" max="310" value="210" disabled>
+                <output class="book-card__count">210 / 310 pág.</output>
+              </div>
+              <footer class="book-card__actions"><span class="book-card__score">100</span></footer>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- [ABA 2] BLOCO DE RASCUNHO: CRIAÇÃO DE NOVAS OBRAS PELO USUÁRIO (Escondido por padrão via JS) -->
+      <section id="tab-draft" class="board-container" style="display: none;">
+        <h2 class="board-container__title">bloco de rascunho</h2>
+        <p style="font-size: 0.95rem; color: #4b5563; margin-bottom: 16px;">Escreva, edite e estruture seus próprios livros e capítulos internos diretamente no portal.</p>
+        <form class="footer-global__contact-form" onsubmit="event.preventDefault();">
+          <input type="text" class="footer-global__input" placeholder="Título da sua nova obra literária" required style="width: 100%; margin-bottom: 12px; padding: 12px; border: 1px solid #e5e7eb; border-radius: 6px;">
+          <textarea class="footer-global__textarea" placeholder="Comece a escrever o seu manuscrito ou capítulo aqui..." required style="width: 100%; min-height: 150px; padding: 12px; border: 1px solid #e5e7eb; border-radius: 6px; margin-bottom: 12px; font-family: inherit;"></textarea>
+          <button type="button" class="navbar__btn" style="background-color: var(--accent-blue, #BC8034); color: white;">Salvar Rascunho</button>
+        </form>
+      </section>
+
+      <!-- [ABA 3] CHAT DE BATE-PAPO: TIMELINE DE DISCUSSÕES ESTILO TWITTER/X (Escondido por padrão) -->
+      <section id="tab-chat" class="board-container" style="display: none;">
+        <h2 class="board-container__title">chat de bate-papo literário</h2>
+        <p style="font-size: 0.95rem; color: #4b5563; margin-bottom: 16px;">Discuta e debata sobre obras clássicas e lançamentos em tempo real na nossa timeline estilo Twitter.</p>
+        
+        <!-- Caixa de Envio de Mensagem (Tweet) -->
+        <div style="border-bottom: 1px solid #e5e7eb; padding-bottom: 16px; margin-bottom: 16px;">
+          <textarea class="footer-global__textarea" placeholder="O que você está lendo ou achando desse capítulo? Compartilhe com a comunidade..." style="width: 100%; min-height: 70px; padding: 12px; border: 1px solid #e5e7eb; border-radius: 6px; margin-bottom: 10px; font-family: inherit;"></textarea>
+          <div style="display: flex; justify-content: flex-end;">
+            <button type="button" class="navbar__btn" style="background-color: #90323D; color: white;">Publicar Comentário</button>
+          </div>
+        </div>
+
+        <!-- Feed Simulado de Mensagens do Chat -->
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="display: flex; gap: 12px; border-bottom: 1px solid #f3f4f6; padding-bottom: 12px;">
+            <div style="width: 40px; height: 40px; background-color: #BC8034; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 14px;">MA</div>
+            <div>
+              <h4 style="font-size: 0.9rem; font-weight: 700; margin: 0;">Machado_De_Assis_Fã <span style="font-weight: 400; color: #64748b; font-size: 0.8rem;">@machadofã · 2h</span></h4>
+              <p style="font-size: 0.9rem; color: #252b42; margin-top: 4px;">Capítulo 32 de Dom Casmurro continua me deixando intrigado. Essa ambiguidade é a maior obra-prima da literatura brasileira!</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- [ABA 4] REVISÃO E PUBLICAÇÃO: UPLOAD DE ARQUIVOS PARA O SITE (Escondido por padrão) -->
+      <section id="tab-publish" class="board-container" style="display: none;">
+        <h2 class="board-container__title">revisão e publicação</h2>
+        <p style="font-size: 0.95rem; color: #4b5563; margin-bottom: 16px;">Envie seus livros finalizados ou arquivos de manuscritos para serem publicados oficialmente na plataforma.</p>
+        <form class="footer-global__contact-form" onsubmit="event.preventDefault();" style="display: flex; flex-direction: column; gap: 12px;">
+          <div>
+            <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 4px;">Selecione o Arquivo do Livro (PDF, EPUB ou DOCX):</label>
+            <input type="file" required style="width: 100%; padding: 8px; border: 1px solid #e5e7eb; border-radius: 6px; background-color: #fafafa;">
+          </div>
+          <div>
+            <label style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 4px;">Gênero Literário Principal:</label>
+            <input type="text" class="footer-global__input" placeholder="Ex: Romance, Ficção Científica, Poesia" required style="width: 100%; padding: 12px; border: 1px solid #e5e7eb; border-radius: 6px;">
+          </div>
+          <div style="margin-top: 6px;">
+            <button type="submit" class="footer-global__btn" style="width: auto; padding: 10px 24px;">Submeter Manuscrito para Revisão</button>
+          </div>
+        </form>
+      </section>
+
+    </div>
+
+    <!-- FORMULÁRIO DE CONTATO DO PERFIL (Mantendo o padrão exigido da Home) -->
+    <section class="board-container" style="margin-top: 24px;">
+      <h2 class="board-container__title">fale conosco no perfil</h2>
+      <form class="footer-global__contact-form" action="#" method="POST">
+        <input type="text" class="footer-global__input" placeholder="Nome completo" required>
+        <input type="email" class="footer-global__input" placeholder="Endereço de E-mail" required>
+        <textarea class="footer-global__textarea" placeholder="Sua mensagem" required></textarea>
+        <button type="submit" class="footer-global__btn">Enviar Mensagem</button>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- RODAPÉ GLOBAL INSTITUCIONAL (Idêntico ao padrão unificado de 2026 estabelecido na Home) -->
+  <footer class="footer-global" role="contentinfo">
+    <div class="footer-global__container">
+      
+      <div class="footer-global__col">
+        <h2 class="footer-global__title">BookShelf</h2>
+        <p class="footer-global__text">Atuação global na difusão de conhecimento, literature e tecnologia educacional. Conectando leitores, autores e instituições em todo o mundo.</p>
+        <div class="footer-global__text">
+          <p>© 2026 BookShelf S.A. Todos os direitos reservados.</p>
+          <p>CNPJ: 12.345.678/0001-99</p>
+        </div>
+      </div>
+
+      <nav class="footer-global__col" aria-label="Links Institucionais">
+        <h3 class="footer-global__title">Institucional</h3>
+        <ul class="footer-global__list">
+          <li><a href="#" class="footer-global__link">Política de Privacidade</a></li>
+          <li><a href="#" class="footer-global__link">Termos de Uso</a></li>
+          <li><a href="#" class="footer-global__link">Ajuda e FAQ</a></li>
+          <li><a href="#" class="footer-global__link">Governança e LGPD</a></li>
+        </ul>
+      </nav>
+
+      <div class="footer-global__col">
+        <h3 class="footer-global__title">Fale Conosco</h3>
+        <p class="footer-global__text">Suporte técnico e atendimento comercial.</p>
+        <a href="mailto:suporte@bookshelf.com" class="footer-global__btn" style="text-align: center; text-decoration: none; display: block; margin-bottom: 10px;">Enviar E-mail</a>
+        <a href="tel:08001234567" class="footer-global__link" style="font-weight: 600; display: block; text-align: center;">0800 123 4567</a>
+      </div>
+
+      <div class="footer-global__col">
+        <h3 class="footer-global__title">Baixe nosso App</h3>
+        <div class="footer-global__apps-grid">
+          <a href="#" class="footer-global__app-badge"> <span>App Store</span></a>
+          <a href="#" class="footer-global__app-badge">▶ <span>Google Play</span></a>
+          <a href="#" class="footer-global__app-badge">📦 <span>Amazon</span></a>
+          <a href="#" class="footer-global__app-badge">🪟 <span>Windows</span></a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Script de comportamento das abas e interatividades do perfil -->
+  <script src="script2.js"></script>
+</body>
+</html>

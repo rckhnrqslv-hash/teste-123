@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BookShelf - Início</title>
+  <link rel="stylesheet" href="/componentes/static/estilogr.css">
+
+</head>
+<body>
+
+  <!-- CABEÇALHO / NAVBAR GLOBAL -->
+  <nav class="navbar" aria-label="Navegação Principal">
+    <div class="navbar__top">
+      <!-- Logo Textual -->
+      <a href="index.html" class="navbar__logo">BookShelf</a>
+
+      <!-- Formulário de Busca com Categorias -->
+      <div class="navbar__search-wrapper">
+        <form class="search-form" action="#" method="GET">
+          <input type="text" name="search" class="search-form__input" placeholder="Search" aria-label="Pesquisar livros">
+
+          <div class="search-form__select-group">
+            <select name="category" class="search-form__select" aria-label="Selecionar categoria">
+              <option value="" disabled selected>Category</option>
+              <option value="todos">todos</option>
+              <option value="autores">autores</option>
+              <option value="titulos">títulos</option>
+            </select>
+          </div>
+
+          <button type="submit" class="search-form__submit-btn" aria-label="Enviar busca">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1 6.53 6.53 0 0 0 1.398-1.4" fill="#FFFFFF"/>
+            </svg>
+          </button>
+        </form>
+
+        <!-- Botões de Autenticação e Perfil -->
+        <div class="navbar__actions">
+          <a href="#" class="navbar__btn">Explore</a>
+          <a href="#" class="navbar__btn">Login</a>
+          <a href="#" class="navbar__btn">Signup</a>
+          <!-- Botão dedicado com ícone de Usuário para alternar ao Perfil -->
+          <button class="navbar__user-icon-btn" id="userProfileToggle" aria-label="Ir para Perfil do Usuário" title="Meu Perfil">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Links de Navegação em Pílula -->
+    <ul class="navbar__pills">
+      <li><a href="index.html" class="navbar__pill-link">Home</a></li>
+      <li><a href="#" class="navbar__pill-link">Lançamentos</a></li>
+      <li><a href="#" class="navbar__pill-link">Autores</a></li>
+      <li><a href="#" class="navbar__pill-link">Artigos</a></li>
+    </ul>
+  </nav>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="main-content">
+
+    <!-- Seção 1: Suas Literaturas (Carrossel com os 6 livros exigidos) -->
+    <section class="board-container">
+      <h2 class="board-container__title">suas literaturas</h2>
+      <div class="carousel">
+        <button class="carousel__nav-btn carousel__nav-btn--prev" aria-label="Anterior">&lt;</button>
+
+        <div class="carousel__track">
+
+          <!-- Livro 1 -->
+          <article class="book-card">
+            <div class="book-card__badge" aria-hidden="true">100%</div>
+            <div class="book-card__cover"><div class="cover-grid"></div></div>
+            <header class="book-card__header"><h3 class="book-card__title">Título do Livro</h3></header>
+            <div class="book-card__tracker">
+              <input type="range" class="book-card__range" min="0" max="300" value="120">
+              <output class="book-card__count">120 / 300 pág.</output>
+            </div>
+            <footer class="book-card__actions">
+              <button class="book-card__action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+              <button class="book-card__action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+              <button class="book-card__action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></button>
+              <span class="book-card__score">100</span>
+            </footer>
+          </article>
+
+          <!-- Livro 2 -->
+          <article class="book-card">
+            <div class="book-card__badge" aria-hidden="true">100%</div>
+            <div class="book-card__cover"><div class="cover-grid"></div></div>
+            <header class="book-card__header"><h3 class="book-card__title">Dom Casmurro</h3></header>
+            <div class="book-card__tracker">
+              <input type="range" class="book-card__range" min="0" max="250" value="80">
+              <output class="book-card__count">80 / 250 pág.</output>
+            </div>
+            <footer class="book-card__actions">
+              <button class="book-card__action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+              <button class="book-card__action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+              <button class="book-card__action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></button>
+              <span class="book-card__score">100</span>
+            </footer>
+          </article>
+
+          <!-- Livro 3 -->
+          <article class="book-card">
+            <div class="book-card__badge" aria-hidden="true">100%</div>
+            <div class="book-card__cover"><div class="cover-grid"></div></div>
+            <header class="book-card__header"><h3 class="book-title">O Cortiço</h3></header>
+            <div class="book-card__tracker">
+              <input type="range" class="book-card__range" min="0" max="310" value="210">
+              <output class="book-card__count">210 / 310 pág.</output>
+            </div>
+            <footer class="book-card__actions">
+              <button class="book-card__action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+              <button class="book-card__action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+              <button class="book-card__action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></button>
+              <span class="book-card__score">100</span>
+            </footer>
+          </article>
+
+          <!-- Livro 4 -->
+          <article class="book-card">
+            <div class="book-card__badge" aria-hidden="true">100%</div>
+            <div class="book-card__cover"><div class="cover-grid"></div></div>
+            <header class="book-card__header"><h3 class="book-title">Iracema</h3></header>
+            <div class="book-card__tracker">
+              <input type="range" class="book-card__range" min="0" max="180" value="180">
+              <output class="book-card__count">180 / 180 pág.</output>
+            </div>
+            <footer class="book-card__actions">
+              <button class="book-card__action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+              <button class="book-card__action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+              <button class="book-card__action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></button>
+              <span class="book-card__score">100</span>
+            </footer>
+          </article>
+
+          <!-- Livro 5 -->
+          <article class="book-card">
+            <div class="book-card__badge" aria-hidden="true">100%</div>
+            <div class="book-card__cover"><div class="cover-grid"></div></div>
+            <header class="book-card__header"><h3 class="book-title">Memórias Póstumas</h3></header>
+            <div class="book-card__tracker">
+              <input type="range" class="book-card__range" min="0" max="220" value="45">
+              <output class="book-card__count">45 / 220 pág.</output>
+            </div>
+            <footer class="book-card__actions">
+              <button class="book-card__action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+              <button class="book-card__action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+              <button class="book-card__action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></button>
+              <span class="book-card__score">100</span>
+            </footer>
+          </article>
+
+          <!-- Livro 6 -->
+          <article class="book-card">
+            <div class="book-card__badge" aria-hidden="true">100%</div>
+            <div class="book-card__cover"><div class="cover-grid"></div></div>
+            <header class="book-card__header"><h3 class="book-title">Vidas Secas</h3></header>
+            <div class="book-card__tracker">
+              <input type="range" class="book-card__range" min="0" max="160" value="10">
+              <output class="book-card__count">10 / 160 pág.</output>
+            </div>
+            <footer class="book-card__actions">
+              <button class="book-card__action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.72-8.72 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></button>
+              <button class="book-card__action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></button>
+              <button class="book-card__action-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></button>
+              <span class="book-card__score">100</span>
+            </footer>
+          </article>
+
+        </div>
+
+        <button class="carousel__nav-btn carousel__nav-btn--next" aria-label="Próximo">&gt;</button>
+      </div>
+    </section>
+
+    <!-- Seção 2: Sugestões de Novos Livros -->
+    <section class="board-container">
+      <h2 class="board-container__title">novas recomendações</h2>
+      <div class="carousel">
+        <button class="carousel__nav-btn carousel__nav-btn--prev">&lt;</button>
+        <div class="carousel__track">
+          <!-- Cards adicionais de sugestão seguindo o mesmo padrão -->
+        </div>
+        <button class="carousel__nav-btn carousel__nav-btn--next">&gt;</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- RODAPÉ GLOBAL INSTITUCIONAL -->
+  <footer class="footer-global" role="contentinfo">
+    <div class="footer-global__container">
+
+      <!-- Bloco Institucional -->
+      <div class="footer-global__col">
+        <h2 class="footer-global__title">BookShelf</h2>
+        <p class="footer-global__text">
+          Atuação global na difusão de conhecimento, literatura e tecnologia educacional. Conectando leitores, autores e instituições em todo o mundo.
+        </p>
+        <div class="footer-global__text">
+          <p>© 2026 BookShelf S.A. Todos os direitos reservados.</p>
+          <p>CNPJ: 12.345.678/0001-99</p>
+        </div>
+      </div>
+
+      <!-- Menu Institucional -->
+      <nav class="footer-global__col" aria-label="Links Institucionais">
+        <h3 class="footer-global__title">Institucional</h3>
+        <ul class="footer-global__list">
+          <li><a href="#" class="footer-global__link">Política de Privacidade</a></li>
+          <li><a href="#" class="footer-global__link">Termos de Uso</a></li>
+          <li><a href="#" class="footer-global__link">Ajuda e FAQ</a></li>
+          <li><a href="#" class="footer-global__link">Governança e LGPD</a></li>
+        </ul>
+      </nav>
+
+      <!-- Seção Fale Conosco -->
+      <div class="footer-global__col">
+        <h3 class="footer-global__title">Fale Conosco</h3>
+        <p class="footer-global__text">Suporte técnico e atendimento comercial.</p>
+        <a href="mailto:suporte@bookshelf.com" class="footer-global__btn" style="text-align: center; text-decoration: none;">Enviar E-mail</a>
+        <a href="tel:08001234567" class="footer-global__link" style="font-weight: 600;">0800 123 4567</a>
+      </div>
+
+      <!-- Seção Baixe nosso App -->
+      <div class="footer-global__col">
+        <h3 class="footer-global__title">Baixe nosso App</h3>
+        <div class="footer-global__apps-grid">
+          <a href="#" class="footer-global__app-badge"> <span>App Store</span></a>
+          <a href="#" class="footer-global__app-badge">▶ <span>Google Play</span></a>
+          <a href="#" class="footer-global__app-badge">📦 <span>Amazon</span></a>
+          <a href="#" class="footer-global__app-badge">🪟 <span>Windows</span></a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="/componentes/js/homejs.js"></script>
+</body>
+</html>

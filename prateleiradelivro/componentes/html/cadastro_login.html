@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticação Unificada - Literarium Global</title>
+    <meta name="description" content="Acesse sua conta ou cadastre-se na Literarium Global de forma segura e rápida.">
+    <link rel="stylesheet" href="/componentes/static/estilogr.css">
+</head>
+<body>
+
+    <!-- Cabeçalho principal semântico com identidade visual da marca -->
+    <header class="cabecalho-principal">
+        <div class="cabecalho-principal__container">
+            <a href="#" class="cabecalho-principal__logo" aria-label="Página inicial Literarium Global">Literarium Global</a>
+            <nav class="navegacao-topo" aria-label="Navegação Principal">
+                <ul class="navegacao-topo__lista">
+                    <li><a href="#" class="navegacao-topo__link">Início</a></li>
+                    <li><a href="#" class="navegacao-topo__link">Catálogo</a></li>
+                    <li><a href="#" class="navegacao-topo__link">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Conteúdo principal estrutural -->
+    <main class="conteudo-principal">
+        <!-- Contêiner principal com posicionamento relativo e overflow oculto para transições fluidas -->
+        <div class="auth-container" id="authContainer">
+
+            <!-- Tela de Login -->
+            <section class="auth-screen auth-screen--login" id="telaLogin" aria-labelledby="tituloLogin">
+                <header class="auth-screen__cabecalho">
+                    <h1 id="tituloLogin" class="auth-screen__titulo">Bem-vindo de volta</h1>
+                    <p class="auth-screen__subtitulo">Insira suas credenciais para avançar</p>
+                </header>
+
+                <form class="auth-form" id="formLogin" novalidate>
+                    <div class="auth-form__grupo">
+                        <label for="loginIdentificador" class="auth-form__rotulo">Nome de Usuário ou E-mail</label>
+                        <input type="text" id="loginIdentificador" name="identificador" class="auth-form__campo" placeholder="ex: usuario@email.com" required autocomplete="username">
+                    </div>
+
+                    <div class="auth-form__grupo">
+                        <label for="loginSenha" class="auth-form__rotulo">Senha</label>
+                        <input type="password" id="loginSenha" name="senha" class="auth-form__campo" placeholder="Sua senha de acesso" required autocomplete="current-password">
+                    </div>
+
+                    <div class="auth-form__acoes">
+                        <button type="submit" class="auth-botao auth-botao--primario">Avançar</button>
+                        <button type="button" class="auth-botao auth-botao--secundario" id="btnIrParaCadastro">Se Cadastrar</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Tela de Cadastro -->
+            <section class="auth-screen auth-screen--register" id="telaCadastro" aria-labelledby="tituloCadastro" inert>
+                <header class="auth-screen__cabecalho">
+                    <h1 id="tituloCadastro" class="auth-screen__titulo">Criar Conta</h1>
+                    <p class="auth-screen__subtitulo">Preencha os campos para se registrar</p>
+                </header>
+
+                <form class="auth-form" id="formCadastro" novalidate>
+                    <div class="auth-form__grupo">
+                        <label for="cadastroUsuario" class="auth-form__rotulo">Nome de Usuário</label>
+                        <input type="text" id="cadastroUsuario" name="usuario" class="auth-form__campo" placeholder="Escolha um nome de usuário" required autocomplete="username">
+                    </div>
+
+                    <div class="auth-form__grupo">
+                        <label for="cadastroEmail" class="auth-form__rotulo">E-mail</label>
+                        <input type="email" id="cadastroEmail" name="email" class="auth-form__campo" placeholder="seu.email@dominio.com" required autocomplete="email">
+                    </div>
+
+                    <div class="auth-form__grupo">
+                        <label for="cadastroSenha" class="auth-form__rotulo">Senha</label>
+                        <input type="password" id="cadastroSenha" name="senha" class="auth-form__campo" placeholder="Mínimo de 8 caracteres" required autocomplete="new-password">
+                    </div>
+
+                    <div class="auth-form__grupo">
+                        <label for="cadastroConfirmaSenha" class="auth-form__rotulo">Confirmar Senha</label>
+                        <input type="password" id="cadastroConfirmaSenha" name="confirmaSenha" class="auth-form__campo" placeholder="Repita sua senha" required autocomplete="new-password">
+                    </div>
+
+                    <div class="auth-form__acoes">
+                        <button type="submit" class="auth-botao auth-botao--primario">Criar Conta</button>
+                        <button type="button" class="auth-botao auth-botao--secundario" id="btnVoltarLogin">Voltar ao Login</button>
+                    </div>
+                </form>
+            </section>
+
+        </div>
+    </main>
+
+    <script src="/componentes/js/cadastrojs.js" defer></script>
+</body>
+</html>

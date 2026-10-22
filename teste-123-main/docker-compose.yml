@@ -1,0 +1,31 @@
+services:
+  # Servidor do Banco de Dados
+  db:
+    image: mysql:8.0
+    container_name: epub_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: escola
+      MYSQL_DATABASE: epub
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  # Sua Aplicação Flask
+  web:
+    build: .
+    container_name: bookshelf_app
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=escola
+      - MYSQL_DB=epub
+    depends_on:
+      - db
+
+volumes:
+  mysql_data:
